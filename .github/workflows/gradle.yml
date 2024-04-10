@@ -23,22 +23,25 @@ jobs:
           scheme: semver
           increment: patch
         env:
-          VERSION: "${{ steps.version.outputs.version$-* }}"
+          VERSION: "${{ steps.version.outputs.version }}"
 
       - name: check version
-        run: echo "$VERSION"
+        run: echo "${VERSION%-*}"
         
 #compile         
-      # - name: Setup Gradle
-        # uses: gradle/gradle-build-action@v2
-      # - name: Run build with Gradle Wrapper
-        # run: ./gradlew compileJava
+      - name: Compile Java file
+        uses: gradle/gradle-build-action@v2
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew compileJava
 
 #package
 
 
 #build
-
+      - name: Setup build
+        uses: gradle/gradle-build-action@v2
+      - name: Run build with Gradle Wrapper
+        run: ./gradlew -Pversion="${VERSION%-*}"
 #create docker image taged version
 
 
