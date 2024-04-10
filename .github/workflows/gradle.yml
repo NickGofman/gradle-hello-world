@@ -1,5 +1,6 @@
 name: Java CI with Gradle, Kepler-186f
 
+
 on:
   push:
     branches: [ "features" ]
@@ -23,9 +24,7 @@ jobs:
           increment: patch
 
       - name: check version
-        run: $VERSION="${{ steps.version.outputs.version }}"
-        run: echo "${VERSION%-*}"
-
-
-  
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          echo "${VERSION%-*}"
 
