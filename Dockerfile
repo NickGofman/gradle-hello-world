@@ -26,5 +26,5 @@ RUN adduser non-root
 # set non-root user
 USER non-root
 
-CMD java -jar hello-world-nick-$VERSION_NUM-all.jar
+CMD java -jar hello-world-nick-$VERSION_NUM-all.jars
 
