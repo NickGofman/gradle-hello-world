@@ -47,12 +47,12 @@ jobs:
       #create docker image taged version
 
       - name: Build docker image
-        run: docker build -t nickgofman/gradle:helloWorld-${{env.buid-number}} --build-arg="VERSION_NUM=${{env.buid-number}}" .
+        run: docker build -t nickgofman/gradle:helloWorld-1.0.${{env.buid-number}} --build-arg="VERSION_NUM=1.0.${{env.buid-number}}" .
     
       #create docker image taged latest
 
       - name: Change tag for docker image latest
-        run: docker tag nickgofman/gradle:helloWorld-${{env.buid-number}}  nickgofman/gradle:latest
+        run: docker tag nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}  nickgofman/gradle:latest
 
 
         # login to github
@@ -65,7 +65,7 @@ jobs:
         #push images to docker hub
  
       - name: Push to DockeHub
-        run: docker push  nickgofman/gradle:helloWorld-${{env.buid-number}}
+        run: docker push  nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}
       
       - name: Push to DockeHub latest
         run: docker push nickgofman/gradle:latest
