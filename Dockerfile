@@ -9,12 +9,8 @@ WORKDIR /hello-world-nick
 
 COPY . .
 
-# create jar
-RUN ./gradlew  jar -Pversion=$VERSION_NUM
-
-# create fat jar
-RUN ./gradlew  shadowJar  -Pversion=$VERSION_NUM
-
+# Build
+RUN ./gradlew  build  -Pversion=$VERSION_NUM
 
 #run fat-jar
 FROM openjdk:23-slim as run-app

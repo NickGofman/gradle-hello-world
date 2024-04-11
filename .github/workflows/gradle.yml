@@ -17,15 +17,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        
 
-      - name: Compile Java file
-        uses: gradle/gradle-build-action@v2
-      - name: Run build with Gradle Wrapper
-        run: ./gradlew compileJava
-
-
-         
+                 
       - name: Build docker image
         run: docker build -t nickgofman/gradle:helloWorld-1.0.${{env.buid-number}} --build-arg="VERSION_NUM=1.0.${{env.buid-number}}" .
     
