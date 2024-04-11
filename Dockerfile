@@ -35,3 +35,4 @@ USER non-root
 
 
 CMD java -jar libs/hello-world-nick-$VERSION_NUM-all.jar
+
