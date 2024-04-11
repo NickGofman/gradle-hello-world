@@ -72,3 +72,12 @@ jobs:
 
 
 #run image
+
+  run-app:
+    runs-on: ubuntu-latest
+        permissions:
+          contents: read
+    
+        steps:
+          - name: run image
+        run: docker run nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}
