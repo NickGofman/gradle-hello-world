@@ -24,7 +24,7 @@ jobs:
           bump_each_commit: true
           
       - name: new version
-        run: echo "VER ${{ steps.version.outputs.version }}"
+        run: echo "VER ${{ steps.semantic_version.outputs.version }}"
     
 
           
