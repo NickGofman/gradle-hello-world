@@ -3,7 +3,7 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "features" ]
 env:
   buid-number: ${{ github.run_number }}
   
