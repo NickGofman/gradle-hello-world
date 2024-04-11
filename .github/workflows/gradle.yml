@@ -23,30 +23,19 @@ jobs:
           scheme: semver
           increment: patch
         env:
-          VERSION: "${{ steps.version.outputs.version }}"
+          VERSION: "${{ steps.version.outputs.version}}"
 
       - name: check env
-        run: echo "${VERSION%-*}"
+        run: echo "VER: ${VERSION%-*}"
         
       #compile         
-      - name: Compile Java file
-        uses: gradle/gradle-build-action@v2
-      - name: Run build with Gradle Wrapper
-        run: ./gradlew compileJava
+      # - name: Compile Java file
+        # uses: gradle/gradle-build-action@v2
+      # - name: Run build with Gradle Wrapper
+        # run: ./gradlew compileJava
 
 
 
-      - name: Set Version
-        run: |
-             export VERSION="{VERSION%-*}"
-        env: 
-          VERSION: "${{ steps.version.outputs.version }}"
-
-
-
-
-      - name: Check ENV
-        run: echo $VERSION
         
       # - name: Setup Gradle
         # uses: gradle/gradle-build-action@v2
