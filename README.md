@@ -69,7 +69,7 @@ on:
 
 ## docker hub link
 
-- [DockerHub Project Repo](https://hub.docker.com/repository/docker/nickgofman/gradle/general)
+- [DockerHub Project Registry](https://hub.docker.com/repository/docker/nickgofman/gradle/general)
 
 
 ## Run Program Locally
