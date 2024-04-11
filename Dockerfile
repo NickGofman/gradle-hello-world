@@ -27,7 +27,7 @@ ENV VERSION_NUM=$VERSION_NUM
 WORKDIR /hello-world-nick
 
 
-COPY --from=build-fat-jar /hello-world-nick/build/ .
+COPY --from=package /hello-world-nick/build/ .
 
 RUN adduser non-root
 # set non-root user
