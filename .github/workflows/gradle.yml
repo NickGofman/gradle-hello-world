@@ -71,13 +71,16 @@ jobs:
         run: docker push nickgofman/gradle:latest
 
 
-#run image
+
+
+
 
   run-app:
+
     runs-on: ubuntu-latest
-        permissions:
-          contents: read
-    
-        steps:
-          - name: run image
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
         run: docker run nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}
