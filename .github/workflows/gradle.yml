@@ -76,7 +76,7 @@ jobs:
 
 
   run-app:
-
+    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
