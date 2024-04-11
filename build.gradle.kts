@@ -1,3 +1,5 @@
+
+
 plugins {
     kotlin("jvm") version "1.6.20"
     id("application")
@@ -10,7 +12,9 @@ plugins {
     // This creates a fat JAR
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
-// version = "1.0.0"
+
+
+
 group = "com.ido"
 description = "HelloWorld"
 
@@ -19,6 +23,8 @@ application.mainClass.set("com.ido.HelloWorld")
 repositories {
     mavenCentral()
 }
+
+
 
 graalvmNative {
     binaries {
@@ -35,3 +41,5 @@ graalvmNative {
         }
     }
 }
+
+

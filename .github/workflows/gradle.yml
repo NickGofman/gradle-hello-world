@@ -3,10 +3,10 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ "features" ]
+    branches: [ "master" ]
 env:
   buid-number: ${{ github.run_number }}
-
+  
 jobs:
   build:
 
@@ -25,13 +25,7 @@ jobs:
         run: ./gradlew compileJava
 
 
-        
-      # - name: Setup Gradle
-        # uses: gradle/gradle-build-action@v2
-      # - name: Run build with Gradle Wrapper
-        # run: ./gradlew build -Pversion="1.0.${{env.buid-number}}"
-      #create docker image taged version
-
+         
       - name: Build docker image
         run: docker build -t nickgofman/gradle:helloWorld-1.0.${{env.buid-number}} --build-arg="VERSION_NUM=1.0.${{env.buid-number}}" .
     
