@@ -50,7 +50,7 @@ docker build -t nickgofman/gradle:helloWorld-${{env.NEW_VERSION}} --build-arg="V
 
 ```
 ### Inside Dockerfile
-### Arguments & envariment variables
+### Arguments & Environment variables
   
 
   `ARG VERSION_NUM`
