@@ -29,7 +29,7 @@ jobs:
 
       - name: set new  version as environment variables
         run: |
-            echo " NEW_VERSION=$(grep 'versionToChange =' build.gradle.kts | cut -d '"' -f2) "
+            echo " NEW_VERSION=$(grep 'versionToChange =' build.gradle.kts | cut -d '"' -f2) " >> $GITHUB_ENV
             
       - name: check new NEW_VERSION environment variable
         run : echo "${{env.NEW_VERSION}}"
