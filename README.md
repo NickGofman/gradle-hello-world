@@ -54,7 +54,7 @@ docker build -t nickgofman/gradle:helloWorld-1.0.${{env.buid-number}} --build-ar
 
 ```
 ### Inside Dockerfile
-### Arguments & envariment variables
+### Arguments & Environment variables
   
   ```yml
   ARG VERSION_NUM=1.0.0 - If no argument passes set the version to 1.0.0 .
