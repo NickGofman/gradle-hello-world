@@ -4,7 +4,7 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ "vesion_control" ]
+    branches: [ "version_test" ]
 env:
   buid-number: ${{ github.run_number }}
   
@@ -16,17 +16,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: semantic-version
-        id: version
-        uses: paulhatch/semantic-version@v5.3.0
-        with:
-          tag_prefix: v1.0.1
-          bump_each_commit: true
-          
-      - name: new version
-        run: echo "VER ${{ steps.semantic_version.outputs.version }}"
-    
 
+
+
+     - name: Setup Gradle
+       uses: gradle/gradle-build-action@v3
+     - name: Build with Gradle
+       run: ./gradlew incrementVersion -Pmode=patch
+
+     # build
+     # test
+       
+     - name: Commit changes 
+       uses: EndBug/add-and-commit@v9
+       with:
+         add: ".build.gradle.kts"
+         message: "increment to patch number after successful build"
+      
+      #  run increment function
+      # build 
+      # test
+      # if test is ok commit changes to git
           
                  # 
       # - name: Build docker image
