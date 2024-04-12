@@ -128,6 +128,22 @@ CMD java -jar hello-world-nick-$VERSION_NUM-all.jar
 ***[Stackoverflow - Mahozad
 ](https://stackoverflow.com/questions/39824574/version-increment-using-gradle-task)***
 
+- Save new version
+   - After a succesfull test of the new image we commit and push the new **build.gradle.kts** file to the repo.
+   ```bash
+   - name: Commit changes
+      uses: EndBug/add-and-commit@v9
+      with:
+         add: build.gradle.kts
+         message: "increment the patch number after successful build, Build number:  ${{ github.run_number }}"
+         pathspec_error_handling: exitImmediately #If add fail, the action will stop right away, and the step will fail
+
+   ```
+   ```bash
+      val versionToChange = "1.0.2" ==> "1.0.3"
+
+   ```
+
 
 ## Plugin Used
   #### Github Action:
