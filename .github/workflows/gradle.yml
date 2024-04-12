@@ -34,7 +34,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
         
       - name: Build with Gradle
-        run: ./gradlew incrementVersion -Pmode=${{env.version-type}}
+        run: ./gradlew incrementVersion -Pmode=${{env.VERSION_TYPE}}
  
 
       - name: set new  version as environment variables
