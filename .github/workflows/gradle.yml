@@ -29,7 +29,8 @@ jobs:
         with:
           add: build.gradle.kts
           message: increment to patch number after successful build
-      
+          env:
+            GITHUB_TOKEN: ${{ secrets.PUSH_TOKEN }}
       #  run increment function
       # build 
       # test
