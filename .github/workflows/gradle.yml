@@ -27,7 +27,7 @@ jobs:
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
         with:
-          add: .build.gradle.kts
+          add: build.gradle.kts
           message: increment to patch number after successful build
       
       #  run increment function
