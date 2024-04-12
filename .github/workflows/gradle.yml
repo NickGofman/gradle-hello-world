@@ -3,23 +3,19 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ "version_test" ]
-env:
-  buid-number: ${{ github.run_number }}
-  # version-type: "minor"
+    branches: [ fake-master, development, version_test ]
   
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
       
     steps:
 
       - name: Set environment for branch
         run: |
-          if [[ $GITHUB_REF_NAME == 'master' ]]; then
+          if [[ $GITHUB_REF_NAME == 'fake-master' ]]; then
              echo "VERSION_TYPE=major" >> "$GITHUB_ENV"
           elif [[ $GITHUB_REF_NAME == 'development' ]]; then
              echo "VERSION_TYPE=minor" >> "$GITHUB_ENV"
@@ -42,7 +38,7 @@ jobs:
             echo "NEW_VERSION=$(grep 'versionToChange =' build.gradle.kts | cut -d '"' -f2)" >> $GITHUB_ENV
             
       - name: check new NEW_VERSION environment variable
-        run : echo "${{env.NEW_VERSION}}"
+        run: echo "${{env.NEW_VERSION}}"
 
                  
       - name: Build docker image
