@@ -8,6 +8,7 @@ on:
     branches: [ "version_test" ]
 env:
   buid-number: ${{ github.run_number }}
+  version-type: "minor"
   
 jobs:
   build:
@@ -24,7 +25,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
         
       - name: Build with Gradle
-        run: ./gradlew incrementVersion -Pmode=patch
+        run: ./gradlew incrementVersion -Pmode=${{env.version-type}}
  
 
       - name: set new  version as environment variables
@@ -33,12 +34,7 @@ jobs:
             
       - name: check new NEW_VERSION environment variable
         run : echo "${{env.NEW_VERSION}}"
-       
-      #  run increment function
-      # build 
-      # test
-      # if test is ok commit changes to git
-          
+
                  
       - name: Build docker image
         run: docker build -t nickgofman/gradle:helloWorld-${{env.NEW_VERSION}} --build-arg="VERSION_NUM=${{env.NEW_VERSION}}" .
@@ -50,6 +46,13 @@ jobs:
 
       - name: Change tag for docker image latest
         run: docker tag nickgofman/gradle:helloWorld-${{env.NEW_VERSION}}  nickgofman/gradle:latest
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: build.gradle.kts
+          message: "increment the patch number after successful build, Build number:  ${{ github.run_number }}"
+          pathspec_error_handling: exitImmediately #If add fail, the action will stop right away, and the step will fail
 
 
       - name: Login to Docker Hub
@@ -66,12 +69,7 @@ jobs:
         run: docker push nickgofman/gradle:latest
 
         
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          add: build.gradle.kts
-          message: "increment to patch number after successful build number:  ${{ github.run_number }}"
-          pathspec_error_handling: exitImmediately #If add fail, the action will stop right away, and the step will fail
+ 
 
   run-app:
     needs: build
