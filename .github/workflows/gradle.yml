@@ -12,7 +12,6 @@ jobs:
       contents: write
       
     steps:
-
       - name: Set environment for branch
         run: |
           if [[ $GITHUB_REF_NAME == 'master' ]]; then
@@ -33,14 +32,11 @@ jobs:
         run: ./gradlew incrementVersion -Pmode=${{env.VERSION_TYPE}}
  
 
-      - name: set new  version as environment variables
+      - name: set new version as environment variables
         run: |
             echo "NEW_VERSION=$(grep 'versionToChange =' build.gradle.kts | cut -d '"' -f2)" >> $GITHUB_ENV
             
-      - name: check new NEW_VERSION environment variable
-        run: echo "${{env.NEW_VERSION}}"
-
-                 
+    
       - name: Build docker image
         run: docker build -t nickgofman/gradle:helloWorld-${{env.NEW_VERSION}} --build-arg="VERSION_NUM=${{env.NEW_VERSION}}" .
 
@@ -79,8 +75,6 @@ jobs:
   run-app:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Check Java program
