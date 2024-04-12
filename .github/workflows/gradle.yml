@@ -3,7 +3,7 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ fake-master, development, version_test ]
+    branches: [ master, development, version_test ]
   
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
 
       - name: Set environment for branch
         run: |
-          if [[ $GITHUB_REF_NAME == 'fake-master' ]]; then
+          if [[ $GITHUB_REF_NAME == 'master' ]]; then
              echo "VERSION_TYPE=major" >> "$GITHUB_ENV"
           elif [[ $GITHUB_REF_NAME == 'development' ]]; then
              echo "VERSION_TYPE=minor" >> "$GITHUB_ENV"
