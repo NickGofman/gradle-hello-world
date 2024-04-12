@@ -1,14 +1,12 @@
 name: Java CI with Gradle, Kepler-186f
 
 
-
-
 on:
   push:
     branches: [ "version_test" ]
 env:
   buid-number: ${{ github.run_number }}
-  version-type: "minor"
+  # version-type: "minor"
   
 jobs:
   build:
@@ -18,6 +16,17 @@ jobs:
 
       
     steps:
+
+      - name: Set environment for branch
+        run: |
+          if [[ $GITHUB_REF_NAME == 'master' ]]; then
+             echo "VERSION_TYPE=major" >> "$GITHUB_ENV"
+          elif [[ $GITHUB_REF_NAME == 'development' ]]; then
+             echo "VERSION_TYPE=minor" >> "$GITHUB_ENV"
+          else
+             echo "VERSION_TYPE=patch" >> "$GITHUB_ENV"
+          fi
+    
       - name: Checkout code
         uses: actions/checkout@v4
         
