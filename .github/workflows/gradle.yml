@@ -3,7 +3,7 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ master, development, version_test ]
+    branches: [ master, development, features ]
   
 jobs:
   build:
