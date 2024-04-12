@@ -22,7 +22,7 @@ public class HelloWorld {
 ```bash
 on:
   push:
-    branches: [ master, development, version_test ]
+    branches: [ master, development, features ]
 
 ```
 
