@@ -3,8 +3,6 @@ FROM openjdk:23-slim as package
 # defaul version number
 ARG VERSION_NUM=1.0.0
 
-ENV VERSION_NUM=$VERSION_NUM
-
 WORKDIR /hello-world-nick
 
 COPY . .
