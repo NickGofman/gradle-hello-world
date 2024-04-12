@@ -30,8 +30,18 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: build.gradle.kts
-          message: increment to patch number after successful build
+          message: "increment to patch number after successful build number:  ${{ github.run_number }}"
+          pathspec_error_handling: exitImmediately #If add fail, the action will stop right away, and the step will fail 
 
+
+
+      - name: set new  version as environment variables
+        run: |
+            echo " NEW_VERSION=$(grep 'versionToChange =' build.gradle.kts | cut -d '"' -f2) "
+            
+      - name: check new NEW_VERSION environment variable
+        run : echo "${{env.NEW_VERSION}}"
+       
       #  run increment function
       # build 
       # test
