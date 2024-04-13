@@ -1,6 +1,6 @@
 // set variable
 
-val versionToChange = "2.0.0"
+val versionToChange = "1.0.0"
 // set version
 version = versionToChange
 
