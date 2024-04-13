@@ -3,32 +3,57 @@ name: Java CI with Gradle, Kepler-186f
 
 on:
   push:
-    branches: [ "master" ]
-env:
-  buid-number: ${{ github.run_number }}
+    branches: [ master, development, features ]
   
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-
+      contents: write
+      
     steps:
+      - name: Set environment for branch
+        run: |
+          if [[ $GITHUB_REF_NAME == 'master' ]]; then
+             echo "VERSION_TYPE=major" >> "$GITHUB_ENV"
+          elif [[ $GITHUB_REF_NAME == 'development' ]]; then
+             echo "VERSION_TYPE=minor" >> "$GITHUB_ENV"
+          else
+             echo "VERSION_TYPE=patch" >> "$GITHUB_ENV"
+          fi
+    
       - name: Checkout code
         uses: actions/checkout@v4
+        
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+        
+      - name: Build with Gradle
+        run: ./gradlew incrementVersion -Pmode=${{env.VERSION_TYPE}}
+ 
 
-                 
+      - name: set new version as environment variables
+        run: |
+            echo "NEW_VERSION=$(grep 'versionToChange =' build.gradle.kts | cut -d '"' -f2)" >> $GITHUB_ENV
+            
+    
       - name: Build docker image
-        run: docker build -t nickgofman/gradle:helloWorld-1.0.${{env.buid-number}} --build-arg="VERSION_NUM=1.0.${{env.buid-number}}" .
+        run: docker build -t nickgofman/gradle:helloWorld-${{env.NEW_VERSION}} --build-arg="VERSION_NUM=${{env.NEW_VERSION}}" .
 
 
       - name: Test if program is running
-        run: docker run nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}
+        run: docker run nickgofman/gradle:helloWorld-${{env.NEW_VERSION}}
 
 
       - name: Change tag for docker image latest
-        run: docker tag nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}  nickgofman/gradle:latest
+        run: docker tag nickgofman/gradle:helloWorld-${{env.NEW_VERSION}}  nickgofman/gradle:latest
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: build.gradle.kts
+          message: "increment the patch number after successful build, Build number:  ${{ github.run_number }}"
+          pathspec_error_handling: exitImmediately #If add fail, the action will stop right away, and the step will fail
 
 
       - name: Login to Docker Hub
@@ -39,19 +64,18 @@ jobs:
 
  
       - name: Push to DockeHub
-        run: docker push  nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}
+        run: docker push  nickgofman/gradle:helloWorld-${{env.NEW_VERSION}}
       
       - name: Push to DockeHub latest
         run: docker push nickgofman/gradle:latest
 
-
+        
+ 
 
   run-app:
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Check Java program
-        run: docker run nickgofman/gradle:helloWorld-1.0.${{env.buid-number}}
+        run: docker run nickgofman/gradle:latest
