@@ -86,19 +86,6 @@ CMD java -jar hello-world-nick-$VERSION_NUM-all.jar
 ```
 
 ## Versioning  Logic
-- Set VERSION_TYPE (major, minor, patch) according to the branch
-
-```bash
-- name: Set environment for branch
-   run: |
-      if [[ $GITHUB_REF_NAME == 'master' ]]; then
-         echo "VERSION_TYPE=major" >> "$GITHUB_ENV"
-      elif [[ $GITHUB_REF_NAME == 'development' ]]; then
-         echo "VERSION_TYPE=minor" >> "$GITHUB_ENV"
-      else
-         echo "VERSION_TYPE=patch" >> "$GITHUB_ENV"
-      fi
-```
 
 - Increment version, this function changes the version number in the **build.gradle.kts** file, according to the type. 
 ```bash
@@ -109,17 +96,6 @@ CMD java -jar hello-world-nick-$VERSION_NUM-all.jar
  - Usage:
 ```bash
 ./gradlew incrementVersion [-P[mode=major|minor|patch]|[overrideVersion=x]]
-```
-
-
- - Examples:
-```bash
-./gradlew incrementVersion -Pmode=patch
-
-./gradlew incrementVersion -Pmode=minor
-
-./gradlew incrementVersion -Pmode=major
-
 ```
 
 #### Reference to incrementVersion function
