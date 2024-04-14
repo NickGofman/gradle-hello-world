@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: write
     env:
-      VERSION_TYPE=patch
+      VERSION_TYPE: "patch"
     steps:
     
       - name: Checkout code
