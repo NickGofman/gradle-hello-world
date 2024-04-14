@@ -17,12 +17,12 @@ public class HelloWorld {
 
 
 ## GitHub Actions CI/CD Stages (gradle.yml)
-- Activate Pipeline on Push event on different branches.
+- Activate Pipeline on Push event on master branch.
 
 ```bash
 on:
   push:
-    branches: [ master, development, features ]
+    branches: [ master ]
 
 ```
 
